@@ -1,0 +1,36 @@
+@model List<SupplyRequest>
+@using System.Security.Claims
+
+<h2>Supply Requests</h2>
+<a asp-action="Create">New Request</a>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Requested by</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var request in Model)
+    {
+        <tr>
+            <td>@request.RequestDate.ToString("g")</td>
+            <td>@(string.IsNullOrEmpty(request.User.FullName) ? request.User.Email : request.User.FullName)</td>
+            <td>@request.TotalPrice.ToString("0.00")</td>
+            <td>@request.Status</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@request.Id">Details</a>
+                @if (request.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                {
+                    if (request.Status == "Pending")
+                    {
+                        <a asp-action="Edit" asp-route-id="@request.Id">Edit</a>
+                    }
+                    <a asp-action="Delete" asp-route-id="@request.Id">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+

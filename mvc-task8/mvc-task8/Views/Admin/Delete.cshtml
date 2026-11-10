@@ -1,0 +1,8 @@
+@model ApplicationUser
+
+<h2>Delete User</h2>
+<p>Are you sure you want to delete @Model.Email and their requests?</p>
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+    <button type="submit">Confirm Delete</button>
+</form>
+<a asp-action="Index">Cancel</a>

@@ -1,0 +1,7 @@
+@model List<RequestItem>
+
+<h2>New Supply Request</h2>
+<form asp-action="Create" method="post">
+    <partial name="_Items" model="Model" />
+</form>
+<a asp-action="Index">Back</a>

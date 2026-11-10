@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>University Cafeteria</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <nav>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Product" asp-action="Index">Products</a>
+            <a asp-controller="SupplyRequest" asp-action="Index">Supply Requests</a>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <a asp-controller="Admin" asp-action="Index">Users</a>
+            }
+        }
+        <partial name="_LoginPartial" />
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

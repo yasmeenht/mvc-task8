@@ -1,0 +1,36 @@
+@model SupplyRequest
+
+<h2>Supply Request Details</h2>
+<p>Requested by: @(string.IsNullOrEmpty(Model.User.FullName) ? Model.User.Email : Model.User.FullName)</p>
+<p>Date: @Model.RequestDate.ToString("g")</p>
+<p>Status: @Model.Status</p>
+
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit price</th>
+        <th>Subtotal</th>
+    </tr>
+    @foreach (var item in Model.RequestItems)
+    {
+        <tr>
+            <td>@item.Product.Name</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price.ToString("0.00")</td>
+            <td>@((item.Quantity * item.Price).ToString("0.00"))</td>
+        </tr>
+    }
+</table>
+
+<p>Total: @Model.TotalPrice.ToString("0.00")</p>
+
+@if (Model.Status == "Pending" && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+{
+    <form asp-action="UpdateStatus" asp-route-id="@Model.Id" method="post">
+        <button type="submit" name="status" value="Approved">Approve</button>
+        <button type="submit" name="status" value="Rejected">Reject</button>
+    </form>
+}
+
+<a asp-action="Index">Back</a>

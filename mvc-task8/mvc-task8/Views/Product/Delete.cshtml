@@ -1,0 +1,13 @@
+@model Product
+
+<h2>Delete Product</h2>
+
+<p>Are you sure you want to delete @Model.Name?</p>
+
+<div asp-validation-summary="All"></div>
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">Confirm Delete</button>
+</form>
+
+<a asp-action="Index">Cancel</a>

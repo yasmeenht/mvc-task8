@@ -1,0 +1,21 @@
+﻿@model LoginDTO
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+
+    <label>Email</label>
+    <input asp-for="Email" type="email" />
+
+    <br />
+
+    <label>Password</label>
+    <input asp-for="Password" type="password" />
+
+    <br />
+
+    <div asp-validation-summary="All"></div>
+
+    <button type="submit">Login</button>
+
+</form>

@@ -1,0 +1,15 @@
+@model ApplicationUser
+
+<h2>Change Role</h2>
+<p>@Model.FullName (@Model.Email)</p>
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    <label for="role">Role</label>
+    <select id="role" name="role">
+        @foreach (var role in new[] { "User", "Admin", "SuperAdmin" })
+        {
+            <option value="@role" selected="@(role == (string?)ViewBag.Role)">@role</option>
+        }
+    </select>
+    <button type="submit">Save</button>
+</form>
+<a asp-action="Index">Cancel</a>
